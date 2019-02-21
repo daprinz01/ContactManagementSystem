@@ -16,19 +16,14 @@ namespace ContactManagementSystem.DataSource
         {
 
         }
-        public DbSet<Contacts> contacts { get; set; }
+        public DbSet<Contact> contacts { get; set; }
     }
 
-    public class Contact
+    public class Contact : Contacts
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long Id { get; set; }
-        public String FirstName { get; set; }
-        public String LastName { get; set; }
-        [DataType(DataType.EmailAddress)]
-        public String Email { get; set; }
-        [DataType(DataType.PhoneNumber)]
-        public String PhoneNumber { get; set; }
+       
     }
 }

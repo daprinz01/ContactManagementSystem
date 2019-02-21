@@ -25,10 +25,15 @@ namespace ContactManagementSystem.Controllers
         public ActionResult<List<Contacts>> Get()
         {
             List<Contacts> contacts = new List<Contacts>();
-            contacts.Add(
-                new Contacts { Email = "okechukwuprince@hotmail.com", FirstName = "Okechukwu", LastName = "Prince", PhoneNumber = "+2348160273875" }
-                );
-            contacts.Add(new Contacts { Email = "daprinz.op@gmail.com", FirstName = "Daprinz", LastName = "Op", PhoneNumber = "+2348134720875" });
+            foreach (var item in db.contacts)
+            {
+                Contacts contact = new Contacts();
+                contact.Email = item.Email;
+                contact.FirstName = item.FirstName;
+                contact.LastName = item.LastName;
+                contact.PhoneNumber = item.PhoneNumber;
+                contacts.Add(contact);
+            }
             return contacts;
         }
 
@@ -37,7 +42,7 @@ namespace ContactManagementSystem.Controllers
         {
             Contacts contact = new Contacts();
 
-            contact = db.contacts.Where(m => m.FirstName == firstName).FirstOrDefault();
+            //contact =(Contacts) db.contacts.Where(m => m.FirstName == firstName).FirstOrDefault();
             return contact;
         }
 
@@ -50,7 +55,12 @@ namespace ContactManagementSystem.Controllers
             {
                 foreach(Contacts item in contact)
                 {
-                    db.contacts.Add(item);
+                    Contact myContact = new Contact();
+                    myContact.FirstName = item.FirstName;
+                    myContact.LastName = item.LastName;
+                    myContact.Email = item.Email;
+                    myContact.PhoneNumber = item.PhoneNumber;
+                    db.contacts.Add(myContact);
                 }
                 db.SaveChanges();
                 
